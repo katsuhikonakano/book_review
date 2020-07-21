@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+          <a href="#" class="alert-link"></a>
+          <p class="text-center">{{ message }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-12 pl-3 pr-3">
+      <h1 class="mt-4">{{ review.title }}</h1>
+      <hr/>
+      <p>{{review.reviewed_at }}</p>
+      <hr/>
+      <div class="review-body">
+        <div class="book-detail d-flex align-items-center">
+          <div class="review-image">
+            <a href="{%url 'book_detail' review.book.id %}">
+              <img src="{{ review.book.image_link }}" alt="" />
+            </a>
+          </div>
+          <div class="book-text pl-5 ml-5">
+            <div class="review-title pb-3">
+              <h4>
+                <a href="{% url 'book_detail' review.book.id %}" class="link-heading" style="color: currentColor;">
+                  {{ review.book.title }}
+                </a>
+              </h4>
+            </div>
+            <div class="review-subtitle pb-3">
+              {% if review.book.subtitle %}
+              <p>{{ review.book.subtitle }}</p>
+              {% endif %}
+            </div>
+            <div class="book-description">
+              <div class="review-score pb-3">
+                <i class="far fa-star"></i>
+                {{ review.score | floatformat:1 }}
+              </div>
+              <p class="text-meta">{{ review.book.description | linebreaksbr | truncatechars:100 }}</p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <p class="text-meta">理由</p>
+        <p class="lead">{{ review.reason | linebreaksbr }}</p>
+        <p class="text-meta">レビュー</p>
+        <p class="lead">{{ review.body | linebreaksbr }}</p>
+      </div>
+      <hr/>
+      
+      {% if user.is_authenticated %}
+      <div class="card my-4">
+        <h5 class="card-header">Leave a Comment:</h5>
+        <div class="card-body">
+          <form action="{% url 'review_detail' review.id %}" method="POST">{% csrf_token %}
+            <div class="form-group">
+              {{ post_comment_form.body }}
+            </div>
+            <button type="submit" class="btn btn-primary">投稿する</button>
+          </form>
+        </div>
+      </div>
+      <hr/>
+      {% endif %}
+      
+      
+      {% if review.oldest_comment_set %}
+          {% for comment in review.comment_set.all %}
+
+          <div class="media mb-4">
+            <div class="media-body">
+              <div class="d-flex align-items-center">
+                <img class="d-flex mr-3 rounded-circle" src="{{ comment.user.icon.url }}" width="80" height="80"　alt=""/>
+                <a href="{% url 'mypage' comment.user.username %}">
+                  <h5 class="mt-0">{{ comment.user.username }}</h5>
+                </a>
+              </div>
+              <div class="box23">
+                {{ comment.body | linebreaksbr }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+      {% else %}
+      <p class="text-center">まだコメントがありません</p>
+      {% endif %}  
+    </div>
+  </div>
+</div>
+{% endblock %}
+

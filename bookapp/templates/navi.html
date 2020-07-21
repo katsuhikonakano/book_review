@@ -1,0 +1,40 @@
+
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="{% url 'index' %}">BookSearch</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse navbar-right" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'books' %}">一覧</a>
+            </li>
+        </ul>
+        <hr>
+        {% if user.is_authenticated %}
+        <ul class="navbar-primary ml-auto">
+            <li>
+                <div class="dropdown">
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.get_username }}</a>    
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink"　aria-haspopup="true" aria-expanded="false">          
+                        <a class="dropdown-item" href="{% url 'mypage' user.username %}">マイページ</a>
+                        <a class="dropdown-item" href="{% url 'user_settings' %}">設定</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">ログアウト</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">ログイン</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">新規ユーザ登録</a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+</nav>
