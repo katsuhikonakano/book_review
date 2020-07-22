@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    icon = models.ImageField('アイコン', upload_to='icons/', default='icon/default.png')
+    icon = models.ImageField('アイコン', upload_to='icons/', default='icons/default.png')
     bio = models.TextField('バイオグラフィー', blank=True, null=True)
 
     def save(self, *args, **kwargs):

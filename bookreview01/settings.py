@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gml-x%f_36ibid$2=t!uh0ra_(&8+v%#6#&r81%((w^a*gq*m#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -137,4 +137,4 @@ AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
