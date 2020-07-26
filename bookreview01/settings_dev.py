@@ -2,7 +2,9 @@ from .settings import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = 'gml-x%f_36ibid$2=t!uh0ra_(&8+v%#6#&r81%((w^a*gq*m#'
+
+ALLOWED_HOSTS = []
 
 LOGGING = {
     'version': 1,
