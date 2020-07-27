@@ -128,18 +128,3 @@ class UserChangeView(LoginRequiredMixin, generic.UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
-    """
-    def user_input(request):
-        if request.method == 'POST':
-            form = CustomUserChangeForm(request.session.get('form_data'))
-        else:
-            form = CustomUserChangeForm(request.POST)
-            if form.is_valid():
-                request.settion['form_data'] = request.POST
-                return redirect('bookapp:mypage')
-        context = {
-            'form':form
-        }
-        return render(request, 'bookapp/mypage.html', context)
-    """
-    
